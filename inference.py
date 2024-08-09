@@ -2,6 +2,7 @@ import argparse
 import numpy as np
 from PIL import Image
 import imageio
+import os
 
 from demo.animate import MagicAnimate
 
@@ -30,7 +31,12 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=1, help="Random seed (default: 1)")
     parser.add_argument("--steps", type=int, default=25, help="Sampling steps (default: 25)")
     parser.add_argument("--guidance_scale", type=float, default=7.5, help="Guidance scale (default: 7.5)")
+    parser.add_argument("--base_path", type=str, default=None)
 
     args = parser.parse_args()
+
+    # set base path
+    if args.base_path is not None:
+        os.chdir(args.base_path)
 
     main(args.reference_image, args.motion_sequence, args.seed, args.steps, args.guidance_scale, args.output_path)
